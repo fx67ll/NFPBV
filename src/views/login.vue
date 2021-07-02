@@ -4,8 +4,8 @@
 			<h1>Welcome</h1>
 
 			<div class="form" :class="this.isLogin ? 'fadeout' : 'fadein'">
-				<input v-model="loginFrom.userName" type="text" placeholder="Username" />
-				<input v-model="loginFrom.passWord" type="password" placeholder="Password" />
+				<input v-model="loginFrom.userName" type="text" placeholder="Username" @keyup.enter="handleLogin()"/>
+				<input v-model="loginFrom.passWord" type="password" placeholder="Password" @keyup.enter="handleLogin()"/>
 				<el-button @click="handleLogin()">Login</el-button>
 			</div>
 		</div>
