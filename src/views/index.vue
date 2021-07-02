@@ -219,8 +219,8 @@ export default {
 		},
 		// 切换查询类型
 		dateTypeChange() {
-			this.month = '';
-			this.date = '';
+			this.month = null;
+			this.date = null;
 			this.time = [];
 			this.queryParams.startTime = '';
 			this.queryParams.endTime = '';
