@@ -1,6 +1,8 @@
 # NFPBV
 Nodejs Front Powered By Vue
 
+欢迎参观 [node.fx67ll.com](http://node.fx67ll.com '后期是Nodejs的深入学习练习示例网站（目前是仅完成登录注册以及单表的增删改查的功能示例）')  
+
 ## 0.1.1.20210702
 * 添加敲击回车直接登录功能  
 * 修复新增一个学员之后，无法查询的问题  
