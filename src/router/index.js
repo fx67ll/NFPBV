@@ -9,6 +9,8 @@ import {
 	Message
 } from 'element-ui'
 
+import Layout from '@/layout'
+
 Vue.use(Router)
 
 // 修复路由重复报错
@@ -24,16 +26,22 @@ import store from '@/store/index.js'
 export const fx67llRoutes = [{
 	path: '/',
 	name: 'login',
-	component: () => import('@v/login.vue') //登录页
+	component: () => import('@v/login.vue') // 登录页
 }, {
-	path: '/index',
-	name: 'index',
-	component: () => import('@v/index.vue') //首页
+	// 注意这样的父级路由是不需要name属性的，以前没有注意到
+	path: '/student',
+	component: Layout,
+	children: [{
+		path: 'index',
+		name: 'student',
+		component: () => import('@v/student/index.vue') // 首页
+	}]
 }]
 
 const router = new Router({
 	mode: 'hash', // history模式，去掉url中的#
 	scrollBehavior: () => ({
+		x: 0,
 		y: 0
 	}),
 	routes: fx67llRoutes
@@ -45,7 +53,7 @@ router.beforeEach((to, from, next) => {
 	if (to.fullPath === '/') {
 		if (getToken()) {
 			next({
-				name: 'index'
+				name: 'student'
 			})
 		} else {
 			next()

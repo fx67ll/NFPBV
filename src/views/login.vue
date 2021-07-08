@@ -62,7 +62,7 @@ export default {
 					this.authOK('提示', '登录成功！');
 					setTimeout(function() {
 						self.$router.push({
-							name: 'index'
+							name: 'student'
 						});
 					}, 600);
 				});
