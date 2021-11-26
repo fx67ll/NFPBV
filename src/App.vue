@@ -1,19 +1,17 @@
 <template>
 	<div id="app">
-		<router-view></router-view>
+		<div id="app-router"><router-view></router-view></div>
+		<div id="app-tip">非常抱歉！暂不支持移动端访问！</div>
 	</div>
 </template>
 
 <script>
-
 export default {
 	name: 'app',
 	data() {
-		return {
-		};
+		return {};
 	},
-	methods: {
-	}
+	methods: {}
 };
 </script>
 
@@ -30,5 +28,27 @@ body {
 #app {
 	width: 100%;
 	height: 100%;
+	#app-router {
+		width: 100%;
+		height: 100%;
+	}
+
+	#app-tip {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 1066px) {
+	#app-router {
+		display: none;
+	}
+
+	#app-tip {
+		display: block !important;
+		text-align: center;
+		line-height: 15vw;
+		font-size: 10vw;
+		padding: 20vw 1vw 0 1vw;
+	}
 }
 </style>
