@@ -40,6 +40,7 @@
 			:visible.sync="isNeedCookie"
 			width="390px"
 			top="170px"
+			:show-close="false"
 			:modal-append-to-body="false"
 			:close-on-click-modal="false"
 			:close-on-press-escape="false"
@@ -163,8 +164,13 @@ export default {
 			let self = this;
 			if (!this.objectHasNull(this.registerForm)) {
 				if (this.registerForm.passWord === this.registerForm.confimPassWord) {
+					// 删除确认的字段，不需要提交
 					delete this.registerForm.confimPassWord;
+
+					// 注册的时候不用那么多判断，直接一律加密
 					this.registerForm.passWord = md5(this.registerForm.passWord);
+
+					// 发送注册请求
 					signup(this.registerForm).then(res => {
 						if (res.status !== 0) {
 							this.isSuccess = false;
@@ -196,10 +202,24 @@ export default {
 			let self = this;
 			if (!this.objectHasNull(this.loginForm)) {
 				this.isLogin = !this.isLogin;
-				if (!this.loginForm.isFromCookie && this.loginForm.userName !== Cookies.getJSON('loginInfo').userName) {
+
+				// 获取cookie里保存的登录信息
+				let lastUserName;
+				if (Cookies.getJSON('loginInfo')) {
+					lastUserName = Cookies.getJSON('loginInfo').userName;
+				} else {
+					lastUserName = '';
+				}
+
+				// 如果使用cookie里的登录信息就不再做md5加密了，判断条件多加一个当前的登录名和保存的登录名一致
+				if (!this.loginForm.isFromCookie || this.loginForm.userName !== lastUserName) {
 					this.loginForm.passWord = md5(this.loginForm.passWord);
 				}
+
+				// 提交的时候不需要整个判断字段
 				delete this.loginForm.isFromCookie;
+
+				// 发送登录请求
 				login(this.loginForm).then(res => {
 					if (res.status !== 0) {
 						// 登录失败后的操作
