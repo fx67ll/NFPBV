@@ -1,6 +1,6 @@
 {
   "name": "NFPBV",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "blueimp-md5": "^2.19.0",
     "core-js": "^2.6.5",
     "echarts": "^5.0.2",
     "element-ui": "^2.14.1",
+    "fx67ll-vue-ui": "^0.2.22",
     "js-cookie": "^2.2.1",
     "less": "^3.12.2",
     "less-loader": "^7.0.1",

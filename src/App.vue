@@ -38,7 +38,7 @@ body {
 	}
 }
 
-@media screen and (max-width: 1066px) {
+@media screen and (max-width: 1166px) {
 	#app-router {
 		display: none;
 	}

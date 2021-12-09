@@ -102,7 +102,7 @@ export default {
 			whiteList: [],
 			blackList: [],
 			amount: 99999,
-			isCollapse: false,
+			isCollapse: true,
 			isAside: true
 		};
 	},
@@ -112,17 +112,17 @@ export default {
 		}
 	},
 	mounted() {
-		console.log(this.$route.path);
+		// console.log(this.$route.path);
 	},
 	methods: {
 		handleOpen(key, keyPath) {
-			console.log(key, keyPath);
+			// console.log(key, keyPath);
 		},
 		handleClose(key, keyPath) {
-			console.log(key, keyPath);
+			// console.log(key, keyPath);
 		},
 		handleSelect(key, keyPath) {
-			console.log(key, keyPath);
+			// console.log(key, keyPath);
 		}
 	}
 };

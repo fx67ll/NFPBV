@@ -52,7 +52,7 @@ service.interceptors.request.use(config => {
 	}
 	return config
 }, error => {
-	console.log('请求异常' + error)
+	console.error('请求异常' + error)
 	Promise.reject(error)
 })
 
@@ -75,6 +75,7 @@ service.interceptors.response.use(res => {
 				setTimeout(function() {
 					location.reload();
 				}, 1000)
+				return res.data;
 			} else
 			if (code === 400) {
 				Notification({
@@ -84,6 +85,7 @@ service.interceptors.response.use(res => {
 					duration: 2000,
 					showClose: false
 				})
+				return res.data;
 			} else
 			if (code === 500) {
 				Message({
@@ -92,7 +94,7 @@ service.interceptors.response.use(res => {
 					duration: 2000,
 					showClose: false
 				})
-				return Promise.reject(new Error(msg))
+				return Promise.reject(new Error(msg));
 			} else {
 				Message({
 					type: 'error',
@@ -100,14 +102,14 @@ service.interceptors.response.use(res => {
 					duration: 2000,
 					showClose: false
 				})
-				return Promise.reject('error')
+				return Promise.reject('error');
 			}
 		} else {
 			return res.data
 		}
 	},
 	error => {
-		console.log('err' + error)
+		console.error('err' + error)
 		let {
 			message
 		} = error;
@@ -124,7 +126,7 @@ service.interceptors.response.use(res => {
 			duration: 2000,
 			showClose: false
 		})
-		return Promise.reject(error)
+		return Promise.reject(error);
 	}
 )
 
