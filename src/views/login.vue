@@ -234,6 +234,16 @@ export default {
 					if (res.status === 0) {
 						// 如果之前配置过记住密码，后期只有通过清空缓存数据可以重新配置
 						this.isNeedRememberMe(res);
+						
+						// duration步长，第二个参数是计量单位
+						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').seconds());
+						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').minutes());
+						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').hours());
+						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').asMinutes());
+						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').asHours());
+						
+						// 返回登录间隔秒，超过多少秒就必须填验证码，前后功能待开发
+						console.log(res.data.loginTimeGap);
 					}
 				});
 			} else {
