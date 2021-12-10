@@ -8,9 +8,10 @@
 				This is fx67ll's Nodejs Demo Powered By Express & MongoDB ~
 			</h1>
 
-			<!-- 登录注册表单 -->
+			<!-- form表单 -->
 			<!-- <div class="form" :class="this.isLogin ? 'fadeout' : 'fadein'"> -->
 			<div class="form" :class="{ 'form-fadeout': this.isLogin, 'form-fadein': !this.isLogin, 'form-shake': !this.isSuccess }">
+				<!-- 登录表单 -->
 				<div class="form-login" :class="!this.isRegister ? 'form-toggle-show' : 'form-toggle-none'">
 					<input v-model="loginForm.userName" type="text" placeholder="Username" @keyup.enter="handleLogin()" />
 					<input v-model="loginForm.passWord" type="password" placeholder="Password" @keyup.enter="handleLogin()" />
@@ -20,6 +21,7 @@
 						<a href="#" @click="createAccount()">立刻创建</a>
 					</p>
 				</div>
+				<!-- 注册表单 -->
 				<div class="form-register" :class="this.isRegister ? 'form-toggle-show' : 'form-toggle-none'">
 					<input v-model="registerForm.userName" type="text" placeholder="Username" @keyup.enter="handleRegister()" />
 					<input v-model="registerForm.passWord" type="password" placeholder="Password" @keyup.enter="handleRegister()" />
@@ -35,6 +37,7 @@
 			</div>
 		</div>
 
+		<!-- 登录配置对话框 -->
 		<el-dialog
 			title="登录配置"
 			:visible.sync="isNeedCookie"
@@ -75,6 +78,7 @@
 			<li></li>
 		</ul>
 
+		<!-- 通用页脚组件 -->
 		<fx67ll-footer fontColor="#ffffff" />
 	</div>
 </template>
@@ -203,16 +207,18 @@ export default {
 			if (!this.objectHasNull(this.loginForm)) {
 				this.isLogin = !this.isLogin;
 
-				// 获取cookie里保存的登录信息
-				let lastUserName;
-				if (Cookies.getJSON('loginInfo')) {
-					lastUserName = Cookies.getJSON('loginInfo').userName;
+				// 获取cookie里保存的登录信息，如果没用储存过的账号密码登录，需要重新加密密码登录
+				let lastUserName, lastPassWord;
+				if (Cookies.getJSON('Login-Info')) {
+					lastUserName = Cookies.getJSON('Login-Info').userName;
+					lastPassWord = Cookies.getJSON('Login-Info').passWord;
 				} else {
 					lastUserName = '';
+					lastPassWord = '';
 				}
 
 				// 如果使用cookie里的登录信息就不再做md5加密了，判断条件多加一个当前的登录名和保存的登录名一致
-				if (!this.loginForm.isFromCookie || this.loginForm.userName !== lastUserName) {
+				if (!this.loginForm.isFromCookie || this.loginForm.userName !== lastUserName || this.loginForm.passWord !== lastPassWord) {
 					this.loginForm.passWord = md5(this.loginForm.passWord);
 				}
 
@@ -249,7 +255,7 @@ export default {
 			// 设置token
 			Cookies.set('User-Token', res.token, { expires: expires, path: path });
 
-			if (!Cookies.get('rememberMe') || this.loginForm.userName !== Cookies.getJSON('loginInfo').userName) {
+			if (!Cookies.get('rememberMe') || this.loginForm.userName !== Cookies.getJSON('Login-Info').userName) {
 				// 设置登录配置
 				this.token = res.token;
 				this.isNeedCookie = true;
@@ -273,7 +279,7 @@ export default {
 				// 设置记住密码
 				Cookies.set('rememberMe', this.isRememberMe, { path: path });
 				Cookies.set(
-					'loginInfo',
+					'Login-Info',
 					{
 						userName: this.loginForm.userName,
 						passWord: this.loginForm.passWord,
@@ -284,7 +290,7 @@ export default {
 				);
 			} else {
 				Cookies.remove('rememberMe');
-				Cookies.remove('loginInfo');
+				Cookies.remove('Login-Info');
 			}
 
 			// 登录成功后的操作
@@ -332,7 +338,8 @@ export default {
 		ifRememberMe() {
 			if (Cookies.get('rememberMe')) {
 				if (JSON.parse(Cookies.get('rememberMe'))) {
-					this.loginForm = Cookies.getJSON('loginInfo');
+					this.loginForm = Cookies.getJSON('Login-Info');
+					this.loginForm.validityTime = 60 * 60 * 24;
 				}
 			}
 		},

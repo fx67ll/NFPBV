@@ -8,7 +8,7 @@
 				</el-radio-group>
 			</div>
 			<div class="fx67ll-setting-radio">
-				<el-radio-group v-model="isAside">
+				<el-radio-group v-model="isAside" @change="asideChange()">
 					<el-radio-button :label="true">竖向</el-radio-button>
 					<el-radio-button :label="false">横向</el-radio-button>
 				</el-radio-group>
@@ -20,8 +20,8 @@
 			:class="{ 'fx67ll-layout-aside-open': !isCollapse, 'fx67ll-layout-aside-close': isCollapse }"
 			:collapse="isCollapse"
 			:collapse-transition="false"
-			@open="handleOpen"
-			@close="handleClose"
+			@open="handleOpen()"
+			@close="handleClose()"
 		>
 			<el-submenu index="1">
 				<template slot="title">
@@ -29,27 +29,27 @@
 					<span slot="title">导航一</span>
 				</template>
 				<el-menu-item-group>
-					<span slot="title">分组一</span>
-					<el-menu-item index="1-1">选项1</el-menu-item>
-					<el-menu-item index="1-2">选项2</el-menu-item>
+					<span slot="title">分组1</span>
+					<el-menu-item index="1-1">选项1（点击无效）</el-menu-item>
+					<el-menu-item index="1-2">选项2（点击无效）</el-menu-item>
 				</el-menu-item-group>
-				<el-menu-item-group title="分组2"><el-menu-item index="1-3">选项3</el-menu-item></el-menu-item-group>
+				<el-menu-item-group title="分组2"><el-menu-item index="1-3">选项3（点击无效）</el-menu-item></el-menu-item-group>
 				<el-submenu index="1-4">
 					<span slot="title">选项4</span>
-					<el-menu-item index="1-4-1">选项1</el-menu-item>
+					<el-menu-item index="1-4-1">选项1（点击无效）</el-menu-item>
 				</el-submenu>
 			</el-submenu>
 			<el-menu-item index="2">
 				<i class="el-icon-menu"></i>
-				<span slot="title">导航二</span>
+				<span slot="title">导航二（点击无效）</span>
 			</el-menu-item>
 			<el-menu-item index="3" disabled>
 				<i class="el-icon-document"></i>
-				<span slot="title">导航三</span>
+				<span slot="title">导航三（已禁用）</span>
 			</el-menu-item>
 			<el-menu-item index="4">
 				<i class="el-icon-setting"></i>
-				<span slot="title">导航四</span>
+				<span slot="title">导航四（点击无效）</span>
 			</el-menu-item>
 		</el-menu>
 		<div
@@ -60,26 +60,26 @@
 				'fx67ll-layout-container-transverse': !isAside
 			}"
 		>
-			<el-menu v-if="!isAside" class="fx67ll-layout-header" mode="horizontal" @select="handleSelect">
-				<el-menu-item index="1">导航一</el-menu-item>
+			<el-menu v-if="!isAside" class="fx67ll-layout-header" mode="horizontal" @select="handleSelect()">
+				<el-menu-item index="1">导航一（点击无效）</el-menu-item>
 				<el-submenu index="2">
 					<template slot="title">
 						导航二
 					</template>
-					<el-menu-item index="2-1">选项1</el-menu-item>
-					<el-menu-item index="2-2">选项2</el-menu-item>
-					<el-menu-item index="2-3">选项3</el-menu-item>
+					<el-menu-item index="2-1">选项1（点击无效）</el-menu-item>
+					<el-menu-item index="2-2">选项2（点击无效）</el-menu-item>
+					<el-menu-item index="2-3">选项3（点击无效）</el-menu-item>
 					<el-submenu index="2-4">
 						<template slot="title">
 							选项4
 						</template>
-						<el-menu-item index="2-4-1">选项1</el-menu-item>
-						<el-menu-item index="2-4-2">选项2</el-menu-item>
-						<el-menu-item index="2-4-3">选项3</el-menu-item>
+						<el-menu-item index="2-4-1">选项1（点击无效）</el-menu-item>
+						<el-menu-item index="2-4-2">选项2（点击无效）</el-menu-item>
+						<el-menu-item index="2-4-3">选项3（点击无效）</el-menu-item>
 					</el-submenu>
 				</el-submenu>
-				<el-menu-item index="3" disabled>导航三</el-menu-item>
-				<el-menu-item index="4"><a href="https://www.fx67ll.com" target="_blank">导航四</a></el-menu-item>
+				<el-menu-item index="3" disabled>测试禁用</el-menu-item>
+				<el-menu-item index="4"><a href="https://www.fx67ll.com" target="_blank">测试外链</a></el-menu-item>
 			</el-menu>
 			<div
 				class="fx67ll-layout-view"
@@ -95,16 +95,38 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 export default {
 	name: 'layout',
 	data() {
 		return {
+			// 保持页面在后台不销毁白名单
 			whiteList: [],
+			// 保持页面在后台不销毁黑名单
 			blackList: [],
+			// 保持页面在后台的最大数量
 			amount: 99999,
+			// 是否展开侧面板
 			isCollapse: true,
+			// 是否切换横向菜单
 			isAside: true
 		};
+	},
+	watch: {
+		// 监听是否展开侧面板
+		isCollapse: {
+			deep: true,
+			handler: function(newval, oldVal) {
+				this.setOptions();
+			}
+		},
+		// 监听是否切换横向菜单
+		isAside: {
+			deep: true,
+			handler: function(newval, oldVal) {
+				this.setOptions();
+			}
+		}
 	},
 	computed: {
 		key() {
@@ -113,14 +135,58 @@ export default {
 	},
 	mounted() {
 		// console.log(this.$route.path);
+		this.getOldOptions();
 	},
 	methods: {
+		// 如果切换横竖布局，则刷新一下页面
+		asideChange() {
+			window.location.reload();
+		},
+		// 获取之前设置好的配置
+		getOldOptions() {
+			if (Cookies.get('Layout-Info') && Cookies.getJSON('Login-Info')) {
+				if (Cookies.getJSON('Layout-Info').userName === Cookies.getJSON('Login-Info').userName) {
+					this.isCollapse = Cookies.getJSON('Layout-Info').isCollapse;
+					this.isAside = Cookies.getJSON('Layout-Info').isAside;
+				}
+			}
+		},
+		// 设置配置，布局信息仅在登录信息有效期内有效，且仅限本账号有效
+		setOptions() {
+			let validityTime, userName;
+
+			// 获取登录过期时间信息
+			if (Cookies.get('rememberMe')) {
+				if (JSON.parse(Cookies.get('rememberMe'))) {
+					userName = Cookies.getJSON('Login-Info').userName;
+					validityTime = Cookies.getJSON('Login-Info').validityTime;
+				}
+			}
+
+			// 设置Cookies路径和过期时间
+			let path = window.location.href;
+			let expires = validityTime;
+
+			// 装配布局信息
+			Cookies.set(
+				'Layout-Info',
+				{
+					isCollapse: this.isCollapse,
+					isAside: this.isAside,
+					userName: userName
+				},
+				{ expires: expires, path: path }
+			);
+		},
+		// 菜单展开
 		handleOpen(key, keyPath) {
 			// console.log(key, keyPath);
 		},
+		// 菜单关闭
 		handleClose(key, keyPath) {
 			// console.log(key, keyPath);
 		},
+		// 菜单选择
 		handleSelect(key, keyPath) {
 			// console.log(key, keyPath);
 		}
@@ -132,14 +198,17 @@ export default {
 @aside-width-open: 240px;
 @aside-width-close: 65px;
 @transition-time: 0.2s;
-@header-height: 80px;
+@header-height: 65px;
 .fx67ll-setting-box {
+	width: 300px;
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
-	z-index: 999;
+	z-index: 99999;
+	display: flex;
+	justify-content: space-between;
 	.fx67ll-setting-radio {
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
 }
 .fx67ll-layout-box {

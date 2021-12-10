@@ -35,18 +35,20 @@
 				end-placeholder="结束日期"
 				:picker-options="pickerOptions"
 				value-format="yyyy-MM-dd"
-				class="jdsms-right-btn-date"
+				class="jdsms-right-btn-date-long"
 				@change="timeChange()"
 			></el-date-picker>
-			<el-button type="primary" icon="el-icon-search" class="jdsms-right-btn-search" @click="handleSearch">查询满18周岁的人</el-button>
-			<el-button type="primary" class="jdsms-right-btn-add" @click="handleLoginOut">
-				退出登录临时按钮
+			<el-button type="default" icon="el-icon-search" class="jdsms-right-btn-search" @click="handleSearch">查询满18周岁的人</el-button>
+			<el-button type="default" icon="el-icon-close" circle @click="handleReset"></el-button>
+			<el-button type="danger" class="jdsms-right-btn-right" @click="handleLoginOut">
+				退出登录
 				<i class="el-icon-male el-icon--right"></i>
 			</el-button>
-			<el-button type="primary" class="jdsms-right-btn-add" @click="handleAdd">
+			<el-button type="success" class="jdsms-right-btn-right" @click="handleAdd">
 				添加
 				<i class="el-icon-upload el-icon--right"></i>
 			</el-button>
+			<el-button type="text" class="jdsms-right-btn-text" @click="openTips">页面简介</el-button>
 		</div>
 		<div class="jdsms-right-table">
 			<el-table :data="tableData" style="width: 100%" :max-height="tableHeight" v-loading="loading">
@@ -176,8 +178,8 @@ export default {
 					}
 				]
 			},
-			// 表格动态最大高度
-			tableHeight: document.body.clientHeight - 210,
+			// 表格动态最大高度，需要随布局同步处理
+			tableHeight: window.innerHeight - 210,
 			// 表格数据
 			tableData: [],
 			// 列表查询参数
@@ -210,9 +212,45 @@ export default {
 	},
 	mounted() {
 		// this.initTableData();
+		this.getLayout();
 		this.getList();
 	},
 	methods: {
+		// 打开页面介绍
+		openTips() {
+			this.$alert(
+				`<br/>
+				<strong> 本项目是基于 Express & MongoDB 的 Nodejs 演示项目 </strong>  <br/><br/>
+				<strong> 本页面用于测试基础增删改查业务功能 &nbsp;&nbsp;  (>▽<) </strong>  <br/><br/>
+				<strong> 每个账号均可独立操作 &nbsp;&nbsp; (๑•̀ㅂ•́)و✧ </strong>  <br/><br/>
+				<strong> 有任何问题请联系管理员 &nbsp; <em>fx67ll@qq.com</em> &nbsp; ┗|｀O′|┛ </strong>  <br/><br/>
+				<strong> Thanks♪(･ω･)ﾉ </strong>`,
+				'页面简介',
+				{
+					dangerouslyUseHTMLString: true,
+					confirmButtonText: '我知道了',
+					callback: action => {
+						// this.$message({
+						// 	type: 'info',
+						// 	message: `action: ${action}`
+						// });
+					}
+				}
+			);
+		},
+		// 获取布局信息
+		// fx67ll：这里需要寻找更为通用的方法，不然每个页面都需要做单独处理？？？？？？
+		getLayout() {
+			if (Cookies.get('Layout-Info')) {
+				if (!Cookies.getJSON('Layout-Info').isAside) {
+					// 如果有横向菜单，除了减去所有表格信息之外的高度，还要减去横向菜单的高度
+					this.tableHeight = window.innerHeight - 210 - 61;
+				} else {
+					// 侧向菜单，固定减去头部、表头和底部的高度
+					this.tableHeight = window.innerHeight - 210;
+				}
+			}
+		},
 		// 退出登录
 		handleLoginOut() {
 			Cookies.remove('User-Token');
@@ -221,6 +259,16 @@ export default {
 				name: 'login'
 			});
 		},
+		// 清除查询条件
+		handleReset() {
+			this.dateType = 0;
+			this.month = null;
+			this.date = null;
+			this.time = [];
+			this.queryParams.startTime = '';
+			this.queryParams.endTime = '';
+			this.getList();
+		},
 		// 切换查询类型
 		dateTypeChange() {
 			this.month = null;
@@ -228,6 +276,7 @@ export default {
 			this.time = [];
 			this.queryParams.startTime = '';
 			this.queryParams.endTime = '';
+			this.getList();
 		},
 		timeChange() {
 			if (this.time) {
@@ -241,6 +290,7 @@ export default {
 				this.queryParams.startTime = '';
 				this.queryParams.endTime = '';
 			}
+			// this.getList();
 		},
 		dateChange() {
 			if (this.date) {
@@ -254,6 +304,7 @@ export default {
 				this.queryParams.startTime = '';
 				this.queryParams.endTime = '';
 			}
+			// this.getList();
 		},
 		// 月份选择的时候获取18年前的当前月开始和结束时间
 		monthChange() {
@@ -270,6 +321,7 @@ export default {
 				this.queryParams.startTime = '';
 				this.queryParams.endTime = '';
 			}
+			// this.getList();
 		},
 		// 获取表格数据
 		getList() {
@@ -302,7 +354,11 @@ export default {
 		// 查询
 		handleSearch() {
 			// this.$message.info('機能開発中');
-			this.getList();
+			if (this.queryParams.startTime && this.queryParams.endTime) {
+				this.getList();
+			} else {
+				this.msgError('请先选择查询日期！');
+			}
 		},
 		// 新增
 		handleAdd() {
@@ -395,6 +451,20 @@ export default {
 };
 </script>
 
+<style lang="less">
+// 去除表格底部的灰色线条
+.el-table--border::after,
+.el-table--group::after,
+.el-table::before {
+	background-color: transparent;
+}
+
+// 去除表格固定列的底部灰色线条
+.el-table__fixed-right::before,
+.el-table__fixed::before {
+	background-color: transparent;
+}
+</style>
 <style lang="less" scoped="scoped">
 .jdsms-box {
 	width: 100%;
@@ -403,22 +473,38 @@ export default {
 	.jdsms-right-btnbox {
 		padding: 30px 40px 30px 40px;
 		.jdsms-right-btn-select {
+			width: 100px;
 			margin-right: 20px;
 		}
 		.jdsms-right-btn-date {
+			width: 150px;
+			margin-right: 20px;
+		}
+		.jdsms-right-btn-date-long {
+			width: 260px;
 			margin-right: 20px;
 		}
 		.jdsms-right-btn-search {
+			margin-right: 10px;
 		}
-		.jdsms-right-btn-add {
+		.jdsms-right-btn-right {
 			float: right;
+		}
+		.jdsms-right-btn-text {
+			float: right;
+			color: #000000;
+			line-height: 20px;
+			margin-right: 10px;
 		}
 	}
 	.jdsms-right-table {
-		height: calc(100% - 130px);
+		// 减去按钮框的高度
+		height: calc(100% - 110px);
 		padding: 0 40px 0 40px;
 		.jdsms-right-pagination {
-			margin-top: 40px;
+			// margin-top: 40px;
+			position: relative;
+			top: 40px;
 		}
 	}
 	.form-item {
