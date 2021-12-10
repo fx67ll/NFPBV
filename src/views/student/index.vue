@@ -59,8 +59,8 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="birth" label="出生日期"></el-table-column>
-				<el-table-column prop="phone" label="联系方式"></el-table-column>
-				<el-table-column prop="bro" label="家人"></el-table-column>
+				<el-table-column prop="phone" label="手机号码"></el-table-column>
+				<el-table-column prop="bro" label="备注信息"></el-table-column>
 				<el-table-column prop="createTime" label="创建日期"></el-table-column>
 				<el-table-column fixed="right" label="操作" width="180">
 					<template slot-scope="scope">
@@ -93,8 +93,9 @@
 				<el-form-item label="出生日期" prop="birth">
 					<el-date-picker v-model="form.birth" value-format="yyyy-MM-dd" type="date" placeholder="请选择出生日期" class="form-item"></el-date-picker>
 				</el-form-item>
-				<el-form-item label="联系方式" prop="phone"><el-input v-model="form.phone" placeholder="请输入联系方式" class="form-item"></el-input></el-form-item>
-				<el-form-item label="家人" prop="bro"><el-input v-model="form.bro" placeholder="请输入家人" class="form-item"></el-input></el-form-item>
+				<el-form-item label="手机号码" prop="phone"><el-input v-model="form.phone" placeholder="请输入手机号码" class="form-item"></el-input></el-form-item>
+				<!-- 原来是家人，现在改为备注信息 -->
+				<el-form-item label="备注信息" prop="bro"><el-input v-model="form.bro" placeholder="请输入备注信息" class="form-item"></el-input></el-form-item>
 			</el-form>
 			<span slot="footer" class="dialog-footer">
 				<el-button @click="handleCancel()">取消</el-button>
@@ -125,11 +126,14 @@ export default {
 			},
 			// 表单校验
 			rules: {
-				name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-				sex: [{ required: true, message: '请选择性别', trigger: 'blur' }],
-				birth: [{ required: true, message: '请选择出生日期', trigger: 'blur' }],
-				phone: [{ required: true, message: '请输入联系方式', trigger: 'blur' }],
-				bro: [{ required: true, message: '请输入家人', trigger: 'blur' }]
+				name: [{ required: true, message: '请输入姓名！', trigger: 'blur' }],
+				sex: [{ required: true, message: '请选择性别！', trigger: 'blur' }],
+				birth: [{ required: true, message: '请选择出生日期！', trigger: 'blur' }],
+				phone: [
+					{ required: true, message: '请输入手机号码！', trigger: 'blur' },
+					{ pattern: /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/, message: '手机号码格式错误！' }
+				],
+				bro: [{ required: true, message: '请输入备注信息！', trigger: 'blur' }]
 			},
 			// 查询类型
 			dateType: 0,

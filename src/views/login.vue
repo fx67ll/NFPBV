@@ -238,13 +238,13 @@ export default {
 		isNeedRememberMe(res) {
 			let self = this;
 
-			// let expires = this.loginForm.validityTime / (60 * 60 * 24);
+			let expires = this.loginForm.validityTime / (60 * 60 * 24);
 			let path = window.location.href;
 
 			// 官方文档只要设置天数，没有时分秒，默认是一天
 			// 通过下面这种方式，60秒后过期来测试cookie过期，https://www.jb51.net/article/163289.htm
-			let seconds = 10;
-			let expires = new Date(new Date() * 1 + seconds * 1000);
+			// let seconds = 10;
+			// let expires = new Date(new Date() * 1 + seconds * 1000);
 
 			// 设置token
 			Cookies.set('User-Token', res.token, { expires: expires, path: path });
@@ -267,6 +267,7 @@ export default {
 			// 记住密码或者不记住密码
 			if (this.isRememberMe) {
 				let expires = this.loginForm.validityTime / (60 * 60 * 24);
+				Cookies.remove('User-token');
 				Cookies.set('User-Token', this.token, { expires: expires, path: path });
 
 				// 设置记住密码
