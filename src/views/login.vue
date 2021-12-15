@@ -5,7 +5,7 @@
 			<h1>
 				Welcome! ヽ(✿ﾟ▽ﾟ)ノ
 				<br />
-				This is fx67ll's Nodejs Demo Powered By Express & MongoDB ~
+				This is fx67ll's Nodejs Project Powered By Express & MongoDB ~
 			</h1>
 
 			<!-- form表单 -->
@@ -53,9 +53,9 @@
 				<div class="tip-item"><el-checkbox v-model="isRememberMe"></el-checkbox></div>
 			</div>
 			<div class="tip-box">
-				<div class="tip-item">设置登录过期时间:</div>
+				<div class="tip-item">设置记住过期时间:</div>
 				<div class="tip-item">
-					<el-select v-model="loginForm.validityTime" placeholder="请选择登录过期时间">
+					<el-select v-model="loginForm.validityTime" placeholder="请选择记住过期时间">
 						<el-option v-for="item in validityTimeOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
 				</div>
@@ -108,7 +108,7 @@ export default {
 			isNeedCookie: false,
 			// 判断是否记住密码
 			isRememberMe: false,
-			// 登录过期时间列表
+			// 记住账号密码的选择时间列表
 			validityTimeOptions: [
 				{
 					value: 60 * 60 * 24,
