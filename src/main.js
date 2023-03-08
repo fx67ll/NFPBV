@@ -52,6 +52,16 @@ Vue.prototype.authError = function(tip, msg) {
 	});
 }
 
+// 长时间悬浮提示
+Vue.prototype.longTimeTip = function(tip, msg) {
+	this.$notify.success({
+		title: tip,
+		message: msg,
+		duration: 4444,
+		showClose: false
+	});
+}
+
 
 new Vue({
 	router,

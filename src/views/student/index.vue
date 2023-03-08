@@ -83,7 +83,15 @@
 				class="jdsms-right-pagination"
 			></el-pagination>
 		</div>
-		<el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="25%" :before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="false">
+		<el-dialog
+			v-loading="loading"
+			:title="dialogTitle"
+			:visible.sync="dialogVisible"
+			width="420px"
+			:before-close="handleClose"
+			:close-on-click-modal="false"
+			:close-on-press-escape="false"
+		>
 			<el-form ref="form" :model="form" :rules="rules" label-width="100px">
 				<el-form-item label="姓名" prop="name"><el-input v-model="form.name" placeholder="请输入姓名" class="form-item"></el-input></el-form-item>
 				<el-form-item label="性別" prop="sex">
@@ -220,8 +228,9 @@ export default {
 		openTips() {
 			this.$alert(
 				`<br/>
-				<strong> 本项目是基于 Express & MongoDB 的 Nodejs 演示项目 </strong>  <br/><br/>
-				<strong> 本页面用于测试基础增删改查业务功能 &nbsp;&nbsp;  (>▽<) </strong>  <br/><br/>
+				<strong> 本项目是 <a href="https://www.fx67ll.com" target="_blank">fx67ll.com</a> 基于 Express & MongoDB 的 Nodejs 简易演示项目 </strong>  <br/><br/>
+				<strong> 本页面对日常开发中必备的前端逻辑做了完善的处理，欢迎找茬 &nbsp;&nbsp; (✪ω✪) </strong>  <br/><br/>
+				<strong> 本页面用于测试基础业务，主要包括 登录注册 和 CRUD 功能 &nbsp;&nbsp;  (>▽<) </strong>  <br/><br/>
 				<strong> 每个账号均可独立操作 &nbsp;&nbsp; (๑•̀ㅂ•́)و✧ </strong>  <br/><br/>
 				<strong> 有任何问题请联系管理员 &nbsp; <em>fx67ll@qq.com</em> &nbsp; ┗|｀O′|┛ </strong>  <br/><br/>
 				<strong> Thanks♪(･ω･)ﾉ </strong>`,
@@ -229,6 +238,7 @@ export default {
 				{
 					dangerouslyUseHTMLString: true,
 					confirmButtonText: '我知道了',
+					customClass: 'alertDialog',
 					callback: action => {
 						// this.$message({
 						// 	type: 'info',
@@ -398,25 +408,30 @@ export default {
 		},
 		// 提交表单
 		submitForm() {
-			this.$refs['form'].validate(valid => {
-				if (valid) {
-					if (this.form._id != undefined) {
-						updateStudent(this.form).then(res => {
-							this.clearForm();
-							this.dialogVisible = false;
-							this.msgOK(res.msg);
-							this.getList();
-						});
+			if (!this.loading) {
+				this.loading = true;
+				this.$refs['form'].validate(valid => {
+					if (valid) {
+						if (this.form._id != undefined) {
+							updateStudent(this.form).then(res => {
+								this.clearForm();
+								this.dialogVisible = false;
+								this.msgOK(res.msg);
+								this.getList();
+							});
+						} else {
+							addStudent(this.form).then(res => {
+								this.clearForm();
+								this.dialogVisible = false;
+								this.msgOK(res.msg);
+								this.getList();
+							});
+						}
 					} else {
-						addStudent(this.form).then(res => {
-							this.clearForm();
-							this.dialogVisible = false;
-							this.msgOK(res.msg);
-							this.getList();
-						});
+						this.loading = false;
 					}
-				}
-			});
+				});
+			}
 		},
 		// 删除
 		handleDelete(row) {
@@ -464,6 +479,10 @@ export default {
 .el-table__fixed::before {
 	background-color: transparent;
 }
+
+.alertDialog {
+	width: 500px !important;
+}
 </style>
 <style lang="less" scoped="scoped">
 .jdsms-box {
@@ -472,6 +491,8 @@ export default {
 	.ban-user-select();
 	.jdsms-right-btnbox {
 		padding: 30px 40px 30px 40px;
+		border-bottom: 1px solid #e6e6e6;
+		margin-bottom: 10px;
 		.jdsms-right-btn-select {
 			width: 100px;
 			margin-right: 20px;
@@ -499,7 +520,7 @@ export default {
 	}
 	.jdsms-right-table {
 		// 减去按钮框的高度
-		height: calc(100% - 110px);
+		height: calc(100% - 120px);
 		padding: 0 40px 0 40px;
 		.jdsms-right-pagination {
 			// margin-top: 40px;

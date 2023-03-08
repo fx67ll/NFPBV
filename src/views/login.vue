@@ -1,5 +1,5 @@
 <template>
-	<div class="login-box" :class="this.isLogin ? 'form-success' : ''" @click="showTips()">
+	<div class="login-box" :class="this.isLogin ? 'form-success' : ''">
 		<div class="container">
 			<!-- 欢迎标题 -->
 			<h1>
@@ -153,6 +153,7 @@ export default {
 	},
 	mounted() {
 		this.ifRememberMe();
+		this.showTips();
 	},
 	methods: {
 		// 创建账户
@@ -234,20 +235,23 @@ export default {
 					if (res.status === 0) {
 						// 如果之前配置过记住密码，后期只有通过清空缓存数据可以重新配置
 						this.isNeedRememberMe(res);
-						
+
 						// duration步长，第二个参数是计量单位
 						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').seconds());
 						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').minutes());
 						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').hours());
 						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').asMinutes());
 						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').asHours());
-						
+
 						// 返回登录间隔秒，超过多少秒就必须填验证码，前后功能待开发
 						console.log(res.data.loginTimeGap);
 					}
 				});
 			} else {
 				this.submitWarning('账号或密码不能为空！');
+				setTimeout(function(){
+					self.showTips();
+				},100);
 			}
 		},
 		// 登录成功后是否需要记住密码
@@ -375,7 +379,7 @@ export default {
 		// 提示
 		showTips() {
 			// 暂时不开放
-			// this.authOK('游客提示', '游客可以使用 admin/123456 访问');
+			this.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程');
 		}
 	}
 };

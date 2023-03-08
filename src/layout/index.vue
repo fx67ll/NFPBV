@@ -25,32 +25,30 @@
 		>
 			<el-submenu index="1">
 				<template slot="title">
-					<i class="el-icon-location"></i>
-					<span slot="title">导航一</span>
+					<i class="el-icon-platform-eleme"></i>
+					<span slot="title">多级导航</span>
 				</template>
-				<el-menu-item-group>
-					<span slot="title">分组1</span>
-					<el-menu-item index="1-1">选项1（点击无效）</el-menu-item>
-					<el-menu-item index="1-2">选项2（点击无效）</el-menu-item>
-				</el-menu-item-group>
-				<el-menu-item-group title="分组2"><el-menu-item index="1-3">选项3（点击无效）</el-menu-item></el-menu-item-group>
-				<el-submenu index="1-4">
-					<span slot="title">选项4</span>
-					<el-menu-item index="1-4-1">选项1（点击无效）</el-menu-item>
+				<el-submenu index="1-1">
+					<span slot="title">测试用导航 1</span>
+					<el-menu-item index="1-1">测试用导航 1-1</el-menu-item>
+					<el-menu-item index="1-2">测试用导航 1-2</el-menu-item>
+				</el-submenu>
+				<el-menu-item index="1-2">测试用导航 2</el-menu-item>
+				<el-submenu index="1-3">
+					<span slot="title">测试用导航 3</span>
+					<el-menu-item index="1-4-1">测试用导航 3-1</el-menu-item>
 				</el-submenu>
 			</el-submenu>
 			<el-menu-item index="2">
-				<i class="el-icon-menu"></i>
-				<span slot="title">导航二（点击无效）</span>
+				<i class="el-icon-info"></i>
+				<span slot="title">一级导航</span>
 			</el-menu-item>
 			<el-menu-item index="3" disabled>
-				<i class="el-icon-document"></i>
-				<span slot="title">导航三（已禁用）</span>
+				<i class="el-icon-question"></i>
+				<span slot="title">禁用导航</span>
 			</el-menu-item>
-			<el-menu-item index="4">
-				<i class="el-icon-setting"></i>
-				<span slot="title">导航四（点击无效）</span>
-			</el-menu-item>
+			<el-menu-item index="4"><a href="https://www.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i></a><span slot="title">fx67ll.com</span></el-menu-item>
+			<el-menu-item index="5"><a href="https://www.fx67ll.xyz" target="_blank"><i class="el-icon-s-promotion"></i></a><span slot="title">fx67ll.xyz</span></el-menu-item>
 		</el-menu>
 		<div
 			class="fx67ll-layout-container"
@@ -61,25 +59,29 @@
 			}"
 		>
 			<el-menu v-if="!isAside" class="fx67ll-layout-header" mode="horizontal" @select="handleSelect()">
-				<el-menu-item index="1">导航一（点击无效）</el-menu-item>
-				<el-submenu index="2">
+				<el-submenu index="1">
 					<template slot="title">
-						导航二
+						多级导航
 					</template>
-					<el-menu-item index="2-1">选项1（点击无效）</el-menu-item>
-					<el-menu-item index="2-2">选项2（点击无效）</el-menu-item>
-					<el-menu-item index="2-3">选项3（点击无效）</el-menu-item>
-					<el-submenu index="2-4">
+					<el-submenu index="1-1">
 						<template slot="title">
-							选项4
+							测试用导航 1
 						</template>
-						<el-menu-item index="2-4-1">选项1（点击无效）</el-menu-item>
-						<el-menu-item index="2-4-2">选项2（点击无效）</el-menu-item>
-						<el-menu-item index="2-4-3">选项3（点击无效）</el-menu-item>
+						<el-menu-item index="1-1-1">测试用导航 1-1</el-menu-item>
+						<el-menu-item index="1-1-2">测试用导航 1-2</el-menu-item>
+					</el-submenu>
+					<el-menu-item index="1-2">测试用导航 2</el-menu-item>
+					<el-submenu index="1-3">
+						<template slot="title">
+							测试用导航 3
+						</template>
+						<el-menu-item index="1-3-1">测试用导航 3-1</el-menu-item>
 					</el-submenu>
 				</el-submenu>
-				<el-menu-item index="3" disabled>测试禁用</el-menu-item>
-				<el-menu-item index="4"><a href="https://www.fx67ll.com" target="_blank">测试外链</a></el-menu-item>
+				<el-menu-item index="2">一级导航</el-menu-item>
+				<el-menu-item index="3" disabled>禁用导航</el-menu-item>
+				<el-menu-item index="4"><a href="https://www.fx67ll.com" target="_blank">fx67ll.com</a></el-menu-item>
+				<el-menu-item index="5"><a href="https://www.fx67ll.xyz" target="_blank">fx67ll.xyz</a></el-menu-item>
 			</el-menu>
 			<div
 				class="fx67ll-layout-view"

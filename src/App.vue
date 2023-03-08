@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<div id="app-router"><router-view></router-view></div>
-		<div id="app-tip">非常抱歉！暂不支持移动端访问！</div>
+		<div id="app-tip">非常抱歉！暂不支持宽度小于1166px尺寸的设备访问！</div>
 	</div>
 </template>
 
