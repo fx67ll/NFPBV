@@ -39,7 +39,7 @@ export const fx67llRoutes = [{
 }]
 
 const router = new Router({
-	mode: 'hash', // history模式，去掉url中的#
+	mode: 'history', // history模式，去掉url中的#
 	scrollBehavior: () => ({
 		x: 0,
 		y: 0
