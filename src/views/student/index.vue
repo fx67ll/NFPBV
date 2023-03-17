@@ -264,10 +264,12 @@ export default {
 		// 退出登录
 		handleLoginOut() {
 			Cookies.remove('User-Token');
-			this.authOK('提示', '退出登录成功！');
-			this.$router.push({
-				name: 'login'
-			});
+			if (!Cookies.get('User-Token')) {
+				this.authOK('提示', '退出登录成功！');
+				this.$router.push({
+					name: 'login'
+				});
+			}
 		},
 		// 清除查询条件
 		handleReset() {
