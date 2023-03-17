@@ -24,22 +24,32 @@ Router.prototype.push = function push(location) {
 import store from '@/store/index.js'
 
 export const fx67llRoutes = [{
-	path: '/',
-	name: 'login',
-	component: () => import('@v/login.vue') // 登录页
-}, {
-	// 注意这样的父级路由是不需要name属性的，以前没有注意到
-	path: '/student',
-	component: Layout,
-	children: [{
-		path: 'index',
-		name: 'student',
-		component: () => import('@v/student/index.vue') // 首页
-	}]
-}]
+		path: '/',
+		name: 'login',
+		component: () => import('@v/login.vue') // 登录页
+	}, {
+		// 注意这样的父级路由是不需要name属性的，以前没有注意到
+		path: '/student',
+		component: Layout,
+		children: [{
+			path: 'index',
+			name: 'student',
+			component: () => import('@v/student/index.vue') // 首页
+		}]
+	},
+	{
+		path: '/404',
+		name: '404',
+		component: () => import('@v/404.vue') //404
+	},
+	{
+		path: '*', //不存在的地址则重定向页面地址
+		redirect: '/404'
+	}
+]
 
 const router = new Router({
-	mode: 'history', // history模式，去掉url中的#
+	mode: 'hash', // history模式，去掉url中的#
 	scrollBehavior: () => ({
 		x: 0,
 		y: 0
