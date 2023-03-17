@@ -181,6 +181,8 @@ export default {
 							this.isSuccess = false;
 						}
 						if (res.status === 0) {
+							this.loginForm.userName = this.registerForm.userName;
+							this.loginForm.passWord = '';
 							this.isRegister = !this.isRegister;
 							this.authOK('提示', '注册成功！请登录~');
 							setTimeout(function() {
@@ -244,14 +246,12 @@ export default {
 						// console.log(moment.duration(res.data.loginTimeGap, 'seconds').asHours());
 
 						// 返回登录间隔秒，超过多少秒就必须填验证码，前后功能待开发
-						console.log(res.data.loginTimeGap);
+						// 貌似不需要前台来做，直接服务端返回即可
+						// console.log(res.data.loginTimeGap);
 					}
 				});
 			} else {
 				this.submitWarning('账号或密码不能为空！');
-				setTimeout(function(){
-					self.showTips();
-				},100);
 			}
 		},
 		// 登录成功后是否需要记住密码
@@ -378,8 +378,10 @@ export default {
 		},
 		// 提示
 		showTips() {
-			// 暂时不开放
-			this.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程');
+			const self = this;
+			setTimeout(function() {
+				self.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程');
+			}, 100);
 		}
 	}
 };
