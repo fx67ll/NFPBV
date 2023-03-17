@@ -47,8 +47,14 @@
 				<i class="el-icon-question"></i>
 				<span slot="title">禁用导航</span>
 			</el-menu-item>
-			<el-menu-item index="4"><a href="https://www.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i></a><span slot="title">fx67ll.com</span></el-menu-item>
-			<el-menu-item index="5"><a href="https://www.fx67ll.xyz" target="_blank"><i class="el-icon-s-promotion"></i></a><span slot="title">fx67ll.xyz</span></el-menu-item>
+			<el-menu-item index="4">
+				<a href="https://www.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i></a>
+				<span slot="title">fx67ll.com</span>
+			</el-menu-item>
+			<el-menu-item index="5">
+				<a href="https://www.fx67ll.xyz" target="_blank"><i class="el-icon-s-promotion"></i></a>
+				<span slot="title">fx67ll.xyz</span>
+			</el-menu-item>
 		</el-menu>
 		<div
 			class="fx67ll-layout-container"
