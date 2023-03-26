@@ -153,7 +153,10 @@ export default {
 	},
 	mounted() {
 		this.ifRememberMe();
-		this.showTips();
+		// 1166px，后期用vuex统一一下
+		if (document.body.clientWidth > 1166) {
+			this.showTips();
+		}
 	},
 	methods: {
 		// 创建账户

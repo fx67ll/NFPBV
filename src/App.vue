@@ -38,6 +38,7 @@ body {
 	}
 }
 
+// 1166px，后期用vuex统一一下
 @media screen and (max-width: 1166px) {
 	#app-router {
 		display: none;
