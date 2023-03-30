@@ -54,7 +54,7 @@ module.exports = {
 	// 配置连接后台的代理问题
 	devServer: {
 		// host: '0.0.0.0',
-		port: 1111,
+		port: 4444,
 		open: false,
 		proxy: {
 			[process.env.VUE_APP_BASE_API]: {
