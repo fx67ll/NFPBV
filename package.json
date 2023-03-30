@@ -1,6 +1,7 @@
 {
   "name": "NFPBV",
   "version": "0.1.11",
+  "description": "fx67ll's Node.js Project",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
