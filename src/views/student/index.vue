@@ -55,7 +55,7 @@
 				layout="total, sizes, prev, pager, next, jumper" :total="total"
 				class="jdsms-right-pagination"></el-pagination>
 		</div>
-		<el-dialog v-loading="loading" :title="dialogTitle" :visible.sync="dialogVisible" width="420px"
+		<el-dialog v-loading="loading" :title="dialogTitle" :visible.sync="dialogVisible" width="444px"
 			:before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="false">
 			<el-form ref="form" :model="form" :rules="rules" label-width="100px">
 				<el-form-item label="姓名" prop="name"><el-input v-model="form.name" placeholder="请输入姓名"
