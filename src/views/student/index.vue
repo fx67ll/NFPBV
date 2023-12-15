@@ -55,7 +55,7 @@
 				layout="total, sizes, prev, pager, next, jumper" :total="total"
 				class="jdsms-right-pagination"></el-pagination>
 		</div>
-		<el-dialog v-loading="loading" :title="dialogTitle" :visible.sync="dialogVisible" width="444px"
+		<el-dialog v-loading="loading" :title="dialogTitle" :visible.sync="dialogVisible" width="420px"
 			:before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="false">
 			<el-form ref="form" :model="form" :rules="rules" label-width="100px">
 				<el-form-item label="姓名" prop="name"><el-input v-model="form.name" placeholder="请输入姓名"
@@ -224,7 +224,7 @@
 			openTips() {
 				this.$alert(
 					`<br/>
-				<strong> 本项目是 <a href="https://www.fx67ll.com" target="_blank">fx67ll.com</a> 基于 Express & MongoDB 的 Nodejs 简易演示项目 </strong>  <br/><br/>
+				<strong> 本项目是 <a href="https://www.fx67ll.com" target="_blank">fx67ll</a> 基于 Express & MongoDB 的 Nodejs 简易演示项目 </strong>  <br/><br/>
 				<strong> 本页面对日常开发中必备的前端逻辑做了完善的处理，欢迎找茬 &nbsp;&nbsp; (✪ω✪) </strong>  <br/><br/>
 				<strong> 本页面用于测试基础业务，主要包括 登录注册 和 CRUD 功能 &nbsp;&nbsp;  (>▽<) </strong>  <br/><br/>
 				<strong> 每个账号均可独立操作 &nbsp;&nbsp; (๑•̀ㅂ•́)و✧ </strong>  <br/><br/>
