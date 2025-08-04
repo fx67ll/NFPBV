@@ -369,15 +369,6 @@ export default {
 				}, 1000);
 			} else {
 				self.isLogin = !self.isLogin;
-				// 登录失败
-				setTimeout(function () {
-					self.loginForm = {
-						userName: '',
-						passWord: '',
-						validityTime: 60 * 60 * 24,
-						isFromCookie: false
-					};
-				}, 600);
 				setTimeout(function () {
 					self.$nextTick(() => {
 						self.loginBoxAniStyle = {
@@ -389,7 +380,16 @@ export default {
 							transition: "all 0.6s",
 						};
 					});
-				}, 1200);
+				}, 600);
+				// 登录失败
+				setTimeout(function () {
+					self.loginForm = {
+						userName: '',
+						passWord: '',
+						validityTime: 60 * 60 * 24,
+						isFromCookie: false
+					};
+				}, 600);
 			}
 		},
 		// 页面加载的时候检查cookie中是否存有登录密码
