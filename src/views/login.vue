@@ -154,7 +154,9 @@ export default {
 			},
 			// 登录动画动态样式
 			loginBoxAniStyle: {},
-			loginFormAniStyle: {}
+			loginFormAniStyle: {},
+			// 初始表单
+			originForm: {},
 		};
 	},
 	mounted() {
@@ -178,6 +180,11 @@ export default {
 			const self = this;
 			if (!this.objectHasNull(this.registerForm)) {
 				if (this.registerForm.passWord === this.registerForm.confimPassWord) {
+					// 初始信息存储一下，用于注册失败之后还原注册信息
+					this.originForm = {
+						...self.registerForm,
+					};
+
 					// 删除确认的字段，不需要提交
 					delete this.registerForm.confimPassWord;
 
@@ -188,12 +195,15 @@ export default {
 					signup(this.registerForm).then(res => {
 						if (res.status !== 0) {
 							this.isSuccess = false;
+							self.registerForm = {
+								...self.originForm,
+							};
 						}
 						if (res.status === 0) {
 							this.loginForm.userName = this.registerForm.userName;
 							this.loginForm.passWord = '';
 							this.isRegister = !this.isRegister;
-							this.authOK('提示', '注册成功！请登录~');
+							this.authOK('提示', '注册成功！请登录~', 444);
 							setTimeout(function () {
 								self.registerForm = {
 									userName: '',
@@ -269,9 +279,6 @@ export default {
 					}
 				}).catch(error => {
 					// 结束加载状态
-					this.finishedLogin(false);
-				}).finally(() => {
-					// 结束加载状态，无论成功失败都执行的逻辑，确保加载状态一定会结束
 					this.finishedLogin(false);
 				});
 			} else {
@@ -349,7 +356,7 @@ export default {
 
 			if (state) {
 				// 登录成功并跳转
-				this.authOK('提示', '登录成功！');
+				this.authOK('提示', '登录成功！', 444);
 				setTimeout(function () {
 					self.$router.push({
 						name: 'student'
@@ -384,7 +391,7 @@ export default {
 				// 登录失败
 				setTimeout(function () {
 					self.loginForm = {
-						userName: '',
+						userName: self.loginForm.userName,
 						passWord: '',
 						validityTime: 60 * 60 * 24,
 						isFromCookie: false
@@ -415,7 +422,7 @@ export default {
 		submitWarning(text) {
 			const self = this;
 			this.isSuccess = false;
-			this.authError('警告', text);
+			this.authError('警告', text, 444);
 			setTimeout(function () {
 				self.isSuccess = true;
 			}, 1000);
@@ -424,7 +431,7 @@ export default {
 		showTips() {
 			const self = this;
 			setTimeout(function () {
-				self.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程');
+				self.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程', 2222);
 			}, 100);
 		}
 	}
