@@ -18,46 +18,46 @@ import fx67llVueUI from 'fx67ll-vue-ui';
 Vue.use(fx67llVueUI)
 
 // 统一成功弹窗
-Vue.prototype.msgOK = function(msg) {
+Vue.prototype.msgOK = function(msg, duration) {
 	this.$message.success({
 		message: msg,
-		duration: 2000,
+		duration: duration || 1023,
 		showClose: false
 	});
 }
 // 统一错误弹窗
-Vue.prototype.msgError = function(msg) {
+Vue.prototype.msgError = function(msg, duration) {
 	this.$message.error({
 		message: msg,
-		duration: 2000,
+		duration: duration || 1023,
 		showClose: false
 	});
 }
 // 权限成功弹窗
-Vue.prototype.authOK = function(tip, msg) {
+Vue.prototype.authOK = function(tip, msg, duration) {
 	this.$notify.success({
 		title: tip,
 		message: msg,
-		duration: 2000,
+		duration: duration || 1023,
 		showClose: false
 	});
 }
 // 权限失败弹窗
-Vue.prototype.authError = function(tip, msg) {
+Vue.prototype.authError = function(tip, msg, duration) {
 	this.$notify.error({
 		title: tip,
 		message: msg,
-		duration: 2000,
+		duration: duration || 1023,
 		showClose: false
 	});
 }
 
 // 长时间悬浮提示
-Vue.prototype.longTimeTip = function(tip, msg) {
+Vue.prototype.longTimeTip = function(tip, msg, duration) {
 	this.$notify.success({
 		title: tip,
 		message: msg,
-		duration: 4444,
+		duration: duration || 4444,
 		showClose: false
 	});
 }
