@@ -431,7 +431,9 @@ export default {
 		showTips() {
 			const self = this;
 			setTimeout(function () {
-				self.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程', 2333);
+				if (!Cookies.get('rememberMe') && !Cookies.getJSON('Login-Info')) {
+					self.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程', 2333);
+				}
 			}, 100);
 		}
 	}
