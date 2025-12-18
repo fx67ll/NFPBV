@@ -203,7 +203,7 @@ export default {
 							this.loginForm.userName = this.registerForm.userName;
 							this.loginForm.passWord = '';
 							this.isRegister = !this.isRegister;
-							this.authOK('提示', '注册成功！请登录~', 444);
+							this.authOK('提示', '注册成功！请登录~', 666);
 							setTimeout(function () {
 								self.registerForm = {
 									userName: '',
@@ -356,7 +356,7 @@ export default {
 
 			if (state) {
 				// 登录成功并跳转
-				this.authOK('提示', '登录成功！', 444);
+				this.authOK('提示', '登录成功！', 666);
 				setTimeout(function () {
 					self.$router.push({
 						name: 'student'
@@ -422,7 +422,7 @@ export default {
 		submitWarning(text) {
 			const self = this;
 			this.isSuccess = false;
-			this.authError('警告', text, 444);
+			this.authError('警告', text, 1023);
 			setTimeout(function () {
 				self.isSuccess = true;
 			}, 1000);
@@ -431,7 +431,7 @@ export default {
 		showTips() {
 			const self = this;
 			setTimeout(function () {
-				self.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程', 2222);
+				self.longTimeTip('游客提示', '请自行注册账号以体验完整的业务流程', 1023);
 			}, 100);
 		}
 	}

@@ -76,7 +76,7 @@ router.beforeEach((to, from, next) => {
 				type: 'error',
 				title: '警告',
 				message: '没有权限请先登录',
-				duration: 2000,
+				duration: 1023,
 				showClose: false
 			})
 			next({

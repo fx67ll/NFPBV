@@ -65,7 +65,7 @@ service.interceptors.response.use(
           type: 'warning',
           title: '警告',
           message: msg,
-          duration: 2000,
+          duration: 1023,
           showClose: false,
         });
         removeToken();
@@ -78,7 +78,7 @@ service.interceptors.response.use(
           type: 'error',
           title: '错误',
           message: `${msg} ${res.data.error[0].msg || ''}`,
-          duration: 2000,
+          duration: 1023,
           showClose: false,
         });
         return res.data;
@@ -87,7 +87,7 @@ service.interceptors.response.use(
           type: 'error',
           title: '错误',
           message: msg,
-          duration: 2000,
+          duration: 1023,
           showClose: false,
         });
         return res.data;
@@ -95,7 +95,7 @@ service.interceptors.response.use(
         Message({
           type: 'error',
           message: msg,
-          duration: 2000,
+          duration: 1023,
           showClose: false,
         });
         return Promise.reject(new Error(msg));
@@ -103,7 +103,7 @@ service.interceptors.response.use(
         Message({
           type: 'error',
           message: msg,
-          duration: 2000,
+          duration: 1023,
           showClose: false,
         });
         return Promise.reject('error');
@@ -125,7 +125,7 @@ service.interceptors.response.use(
     Message({
       type: 'error',
       message: message,
-      duration: 2000,
+      duration: 1023,
       showClose: false,
     });
     return Promise.reject(error);

@@ -260,7 +260,7 @@
 			handleLoginOut() {
 				Cookies.remove('User-Token');
 				if (!Cookies.get('User-Token')) {
-					this.authOK('提示', '退出登录成功！', 444);
+					this.authOK('提示', '退出登录成功！', 666);
 					this.$router.push({
 						name: 'login'
 					});
