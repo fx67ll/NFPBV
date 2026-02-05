@@ -1,7 +1,7 @@
 # NFPBV
 Nodejs Front Powered By Vue
 
-欢迎参观 [node.fx67ll.com](http://node.fx67ll.com '后期是Nodejs的深入学习练习示例网站（目前是仅完成登录注册以及单表的增删改查的功能示例）')  
+欢迎参观 [node.fx67ll.com](https://node.fx67ll.com '后期是Nodejs的深入学习练习示例网站（目前是仅完成登录注册以及单表的增删改查的功能示例）')  
 
 ## 0.1.x.20xxxxxx  
 * 新增可选择登录有效期的功能（待完成）
