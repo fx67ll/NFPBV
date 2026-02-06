@@ -81,20 +81,36 @@
 						技术博客</a>
 				</el-menu-item>
 				<el-menu-item index="4-3">
-					<a href="https://vip.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>fx67ll's
-						管理系统</a>
+					<a href="https://nav.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>个人站点导航</a>
 				</el-menu-item>
-				<el-menu-item index="4-4">
-					<a href="https://nav.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>fx67ll's
-						站点导航</a>
+				<el-menu-item index="4-3">
+					<a href="https://life.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>个人日常H5工具</a>
+				</el-menu-item>
+				<el-menu-item index="4-5">
+					<a href="https://vip.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>个人管理后台</a>
+				</el-menu-item>
+				<el-menu-item index="4-6">
+					<a href="https://node.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>Node.js 练习作品，使用 Express + MongoDB 构建</a>
+				</el-menu-item>
+				<el-menu-item index="4-7">
+					<a href="https://three.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>Three.js 作品合集</a>
+				</el-menu-item>
+				<el-menu-item index="4-8">
+					<a href="https://uni.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>uni-app 作品示例合集</a>
+				</el-menu-item>
+				<el-menu-item index="4-9">
+					<a href="https://react.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>React.js 练习作品，基于 Ant-Design-Pro + MongoDB 搭建</a>
+				</el-menu-item>
+				<el-menu-item index="4-10">
+					<a href="https://map.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>大数据可视化图表地图的示例网站（暂未完成，持续开发中，敬请期待...）</a>
 				</el-menu-item>
 			</el-submenu>
 		</el-menu>
 		<div class="fx67ll-layout-container" :class="{
-				'fx67ll-layout-container-open': !isCollapse && isAside,
-				'fx67ll-layout-container-close': isCollapse && isAside,
-				'fx67ll-layout-container-transverse': !isAside
-			}">
+			'fx67ll-layout-container-open': !isCollapse && isAside,
+			'fx67ll-layout-container-close': isCollapse && isAside,
+			'fx67ll-layout-container-transverse': !isAside
+		}">
 			<el-menu v-if="!isAside" class="fx67ll-layout-header" mode="horizontal" @select="handleSelect()">
 				<el-submenu index="1">
 					<template slot="title">
@@ -170,9 +186,9 @@
 				</el-submenu>
 			</el-menu>
 			<div class="fx67ll-layout-view" :class="{
-					'fx67ll-layout-transverse-open': !isAside,
-					'fx67ll-layout-transverse-close': isAside
-				}">
+				'fx67ll-layout-transverse-open': !isAside,
+				'fx67ll-layout-transverse-close': isAside
+			}">
 				<keep-alive :include="whiteList" :exclude="blackList" :max="amount"><router-view
 						:key="key"></router-view></keep-alive>
 			</div>
@@ -181,179 +197,179 @@
 </template>
 
 <script>
-	import Cookies from 'js-cookie';
-	export default {
-		name: 'layout',
-		data() {
-			return {
-				// 保持页面在后台不销毁白名单
-				whiteList: [],
-				// 保持页面在后台不销毁黑名单
-				blackList: [],
-				// 保持页面在后台的最大数量
-				amount: 99999,
-				// 是否展开侧面板
-				isCollapse: true,
-				// 是否切换横向菜单
-				isAside: true
-			};
-		},
-		watch: {
-			// 监听是否展开侧面板
-			isCollapse: {
-				deep: true,
-				handler: function(newval, oldVal) {
-					this.setOptions();
-				}
-			},
-			// 监听是否切换横向菜单
-			isAside: {
-				deep: true,
-				handler: function(newval, oldVal) {
-					this.setOptions();
-				}
+import Cookies from 'js-cookie';
+export default {
+	name: 'layout',
+	data() {
+		return {
+			// 保持页面在后台不销毁白名单
+			whiteList: [],
+			// 保持页面在后台不销毁黑名单
+			blackList: [],
+			// 保持页面在后台的最大数量
+			amount: 99999,
+			// 是否展开侧面板
+			isCollapse: true,
+			// 是否切换横向菜单
+			isAside: true
+		};
+	},
+	watch: {
+		// 监听是否展开侧面板
+		isCollapse: {
+			deep: true,
+			handler: function (newval, oldVal) {
+				this.setOptions();
 			}
 		},
-		computed: {
-			key() {
-				return this.$route.path;
-			}
-		},
-		mounted() {
-			// console.log(this.$route.path);
-			this.getOldOptions();
-		},
-		methods: {
-			// 如果切换横竖布局，则刷新一下页面
-			asideChange() {
-				window.location.reload();
-			},
-			// 获取之前设置好的配置
-			getOldOptions() {
-				if (Cookies.get('Layout-Info') && Cookies.getJSON('Login-Info')) {
-					if (Cookies.getJSON('Layout-Info').userName === Cookies.getJSON('Login-Info').userName) {
-						this.isCollapse = Cookies.getJSON('Layout-Info').isCollapse;
-						this.isAside = Cookies.getJSON('Layout-Info').isAside;
-					}
-				}
-			},
-			// 设置配置，布局信息仅在登录信息有效期内有效，且仅限本账号有效
-			setOptions() {
-				let validityTime, userName;
-
-				// 获取登录过期时间信息
-				if (Cookies.get('rememberMe')) {
-					if (JSON.parse(Cookies.get('rememberMe'))) {
-						userName = Cookies.getJSON('Login-Info').userName;
-						validityTime = Cookies.getJSON('Login-Info').validityTime;
-					}
-				}
-
-				// 设置Cookies路径和过期时间
-				let path = window.location.href;
-				let expires = validityTime;
-
-				// 装配布局信息
-				Cookies.set(
-					'Layout-Info', {
-						isCollapse: this.isCollapse,
-						isAside: this.isAside,
-						userName: userName
-					}, {
-						expires: expires,
-						path: path
-					}
-				);
-			},
-			// 菜单展开
-			handleOpen(key, keyPath) {
-				// console.log(key, keyPath);
-			},
-			// 菜单关闭
-			handleClose(key, keyPath) {
-				// console.log(key, keyPath);
-			},
-			// 菜单选择
-			handleSelect(key, keyPath) {
-				// console.log(key, keyPath);
+		// 监听是否切换横向菜单
+		isAside: {
+			deep: true,
+			handler: function (newval, oldVal) {
+				this.setOptions();
 			}
 		}
-	};
+	},
+	computed: {
+		key() {
+			return this.$route.path;
+		}
+	},
+	mounted() {
+		// console.log(this.$route.path);
+		this.getOldOptions();
+	},
+	methods: {
+		// 如果切换横竖布局，则刷新一下页面
+		asideChange() {
+			window.location.reload();
+		},
+		// 获取之前设置好的配置
+		getOldOptions() {
+			if (Cookies.get('Layout-Info') && Cookies.getJSON('Login-Info')) {
+				if (Cookies.getJSON('Layout-Info').userName === Cookies.getJSON('Login-Info').userName) {
+					this.isCollapse = Cookies.getJSON('Layout-Info').isCollapse;
+					this.isAside = Cookies.getJSON('Layout-Info').isAside;
+				}
+			}
+		},
+		// 设置配置，布局信息仅在登录信息有效期内有效，且仅限本账号有效
+		setOptions() {
+			let validityTime, userName;
+
+			// 获取登录过期时间信息
+			if (Cookies.get('rememberMe')) {
+				if (JSON.parse(Cookies.get('rememberMe'))) {
+					userName = Cookies.getJSON('Login-Info').userName;
+					validityTime = Cookies.getJSON('Login-Info').validityTime;
+				}
+			}
+
+			// 设置Cookies路径和过期时间
+			let path = window.location.href;
+			let expires = validityTime;
+
+			// 装配布局信息
+			Cookies.set(
+				'Layout-Info', {
+				isCollapse: this.isCollapse,
+				isAside: this.isAside,
+				userName: userName
+			}, {
+				expires: expires,
+				path: path
+			}
+			);
+		},
+		// 菜单展开
+		handleOpen(key, keyPath) {
+			// console.log(key, keyPath);
+		},
+		// 菜单关闭
+		handleClose(key, keyPath) {
+			// console.log(key, keyPath);
+		},
+		// 菜单选择
+		handleSelect(key, keyPath) {
+			// console.log(key, keyPath);
+		}
+	}
+};
 </script>
 
 <style lang="less" scoped="scoped">
-	@aside-width-open: 240px;
-	@aside-width-close: 65px;
-	@transition-time: 0.2s;
-	@header-height: 65px;
+@aside-width-open: 240px;
+@aside-width-close: 65px;
+@transition-time: 0.2s;
+@header-height: 65px;
 
-	.fx67ll-setting-box {
-		width: 300px;
-		position: absolute;
-		bottom: 20px;
-		right: 20px;
-		z-index: 99999;
-		display: flex;
-		justify-content: space-between;
+.fx67ll-setting-box {
+	width: 300px;
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	z-index: 99999;
+	display: flex;
+	justify-content: space-between;
 
-		.fx67ll-setting-radio {
-			margin-bottom: 10px;
-		}
+	.fx67ll-setting-radio {
+		margin-bottom: 10px;
+	}
+}
+
+.fx67ll-layout-box {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+
+	.fx67ll-layout-aside {
+		transition: width @transition-time;
+		height: 100%;
+		background-color: rgba(46, 204, 113, 0.6);
 	}
 
-	.fx67ll-layout-box {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: space-between;
+	.fx67ll-layout-aside-open {
+		width: @aside-width-open;
+	}
 
-		.fx67ll-layout-aside {
-			transition: width @transition-time;
-			height: 100%;
+	.fx67ll-layout-aside-close {
+		width: @aside-width-close;
+	}
+
+	.fx67ll-layout-container {
+		transition: width @transition-time;
+		height: 100%;
+
+		.fx67ll-layout-header {
+			width: 100%;
 			background-color: rgba(46, 204, 113, 0.6);
 		}
 
-		.fx67ll-layout-aside-open {
-			width: @aside-width-open;
-		}
-
-		.fx67ll-layout-aside-close {
-			width: @aside-width-close;
-		}
-
-		.fx67ll-layout-container {
-			transition: width @transition-time;
-			height: 100%;
-
-			.fx67ll-layout-header {
-				width: 100%;
-				background-color: rgba(46, 204, 113, 0.6);
-			}
-
-			.fx67ll-layout-view {
-				width: 100%;
-				transition: height @transition-time;
-			}
-		}
-
-		.fx67ll-layout-container-open {
-			width: calc(100% - @aside-width-open);
-		}
-
-		.fx67ll-layout-container-close {
-			width: calc(100% - @aside-width-close);
-		}
-
-		.fx67ll-layout-container-transverse {
+		.fx67ll-layout-view {
 			width: 100%;
-		}
-
-		.fx67ll-layout-transverse-open {
-			height: calc(100% - @header-height);
-		}
-
-		.fx67ll-layout-transverse-close {
-			height: 100%;
+			transition: height @transition-time;
 		}
 	}
+
+	.fx67ll-layout-container-open {
+		width: calc(100% - @aside-width-open);
+	}
+
+	.fx67ll-layout-container-close {
+		width: calc(100% - @aside-width-close);
+	}
+
+	.fx67ll-layout-container-transverse {
+		width: 100%;
+	}
+
+	.fx67ll-layout-transverse-open {
+		height: calc(100% - @header-height);
+	}
+
+	.fx67ll-layout-transverse-close {
+		height: 100%;
+	}
+}
 </style>
