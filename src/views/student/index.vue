@@ -51,7 +51,7 @@
 				</el-table-column>
 			</el-table>
 			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-				:current-page="queryParams.pageIndex" :page-sizes="[10, 20, 30, 40, 50]" :page-size="10"
+				:current-page="queryParams.pageIndex" :page-sizes="[5, 10, 23, 50, 100]" :page-size="5"
 				layout="total, sizes, prev, pager, next, jumper" :total="total"
 				class="jdsms-right-pagination"></el-pagination>
 		</div>
@@ -191,7 +191,7 @@
 					// 当前页
 					pageIndex: 1,
 					// 页数
-					pageSize: 10,
+					pageSize: 5,
 					// 按时间查询，18年前的当前月开始和结束时间
 					// startTime: moment()
 					// 	.subtract(18, 'years')
