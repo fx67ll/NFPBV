@@ -70,7 +70,7 @@
 			<el-submenu index="4">
 				<template slot="title">
 					<i class="el-icon-star-off"></i>
-					<span slot="title">友情链接</span>
+					<span slot="title">个人作品</span>
 				</template>
 				<el-menu-item index="4-1">
 					<a href="https://www.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>fx67ll's
