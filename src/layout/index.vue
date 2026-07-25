@@ -70,39 +70,19 @@
 			<el-submenu index="4">
 				<template slot="title">
 					<i class="el-icon-star-off"></i>
-					<span slot="title">个人作品</span>
+					<span slot="title">友情链接</span>
 				</template>
 				<el-menu-item index="4-1">
-					<a href="https://www.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>fx67ll's
-						个人主页</a>
+					<a href="https://fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>个人主页</a>
 				</el-menu-item>
 				<el-menu-item index="4-2">
-					<a href="https://www.fx67ll.xyz" target="_blank"><i class="el-icon-s-promotion"></i>fx67ll's
-						技术博客</a>
+					<a href="https://fx67ll.xyz" target="_blank"><i class="el-icon-s-promotion"></i>技术博客</a>
 				</el-menu-item>
 				<el-menu-item index="4-3">
-					<a href="https://nav.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>个人站点导航</a>
+					<a href="https://nav.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>站点导航</a>
 				</el-menu-item>
-				<el-menu-item index="4-3">
-					<a href="https://life.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>个人日常H5工具</a>
-				</el-menu-item>
-				<el-menu-item index="4-5">
-					<a href="https://vip.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>个人管理后台</a>
-				</el-menu-item>
-				<el-menu-item index="4-6">
-					<a href="https://node.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>Node.js 练习作品，使用 Express + MongoDB 构建</a>
-				</el-menu-item>
-				<el-menu-item index="4-7">
-					<a href="https://three.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>Three.js 作品合集</a>
-				</el-menu-item>
-				<el-menu-item index="4-8">
-					<a href="https://uni.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>uni-app 作品示例合集</a>
-				</el-menu-item>
-				<el-menu-item index="4-9">
-					<a href="https://react.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>React.js 练习作品，基于 Ant-Design-Pro + MongoDB 搭建</a>
-				</el-menu-item>
-				<el-menu-item index="4-10">
-					<a href="https://map.fx67ll.com" target="_blank"><i class="el-icon-s-promotion"></i>大数据可视化图表地图的示例网站（暂未完成，持续开发中，敬请期待...）</a>
+				<el-menu-item index="4-4">
+					<a href="https://fx67ll.xyz/s/messageboard" target="_blank"><i class="el-icon-s-promotion"></i>给我留言</a>
 				</el-menu-item>
 			</el-submenu>
 		</el-menu>
